@@ -53,14 +53,18 @@ If you download a real dataset (like a CSV file predicting house prices based on
 2. **Extract X and y:** 
    - `X` becomes the column you are using to predict (e.g., Square Footage). Convert it to a NumPy array.
    - `y` becomes the target column you want to guess (e.g., House Price). Convert it to a NumPy array.
-3. **Data Scaling (Crucial for Gradient Descent!):**
+3. **Train / Test Split (Crucial for preventing Overfitting!):**
+   - If you test your model on the exact same data it was trained on, you don't know if it actually learned the underlying pattern, or if it just memorized the answers to the test. 
+   - To prevent this, randomly split your data into a **Training Set** (e.g. 80%) to train the model, and a **Test Set** (e.g. 20%) that the model has never seen to test its true performance.
+4. **Data Scaling:**
    - Real datasets have large numbers (a house might be 2,000 sq ft and cost $500,000). 
    - If you feed numbers this big into Gradient Descent without changing the learning rate, the gradients will explode to infinity.
-   - You must **Normalize** or **Standardize** your `X` data so all the numbers are small (e.g., between -1 and 1).
-4. **Train and Predict:**
+   - You must **Normalize** or **Standardize** your `X` data so all the numbers are small (e.g., between -1 and 1). *Note: Calculate the mean/std ONLY on the training data, then use those numbers to scale both the training and test data!*
+5. **Train, Predict, and Evaluate:**
    - Instantiate your model: `model = SimpleLinearRegression()`
-   - Train it: `model.fit(X_scaled, y)`
-   - Predict: `model.predict(new_unseen_X_scaled)`
+   - Train it: `model.fit(X_train_scaled, y_train)`
+   - Predict: `predictions = model.predict(X_test_scaled)`
+   - Evaluate: Compare `predictions` to `y_test` using Regression metrics.
 
 ---
 
